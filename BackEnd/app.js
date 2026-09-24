@@ -31,7 +31,29 @@ app.get("/",(req,res)=>{
 });
 
 // app.use("/auth",authRoutes);
-
+app.post("/auth/register",async (req,res)=>{
+    const result = validateRegisteration.validate(req.body);
+    if(result.error){
+        throw new ExpressError(StatusCodes.BAD_REQUEST,result.error.message);
+    }
+    const {name,email,password} = req.body;
+    const existingUser = await User.findOne({ email });
+    if(existingUser){
+        throw new ExpressError(StatusCodes.CONFLICT,"Email Already Exist");
+    }
+    const hashedPass = await bcrypt.hash(password,10);
+    const user = new User({
+        name,
+        email,
+        password : hashedPass
+    });
+    await user.save();
+    const safeUser = {
+        name,
+        email
+    };
+    return res.status(StatusCodes.CREATED).json({message : "User Registered",safeUser});
+});
 
 // ERROR HANDLING LOGIC
 app.use((err,req,res,next)=>{
