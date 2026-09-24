@@ -2,16 +2,21 @@ const express = require("express");
 const app = express();
 const authRoutes = require("./routes/authRoutes");
 const User = require("./Models/user");
-const register = require("./Validators/reg");
+const bcrypt = require("bcrypt");
+const ExpressError = require("./utilis/ExpressError");
+const { StatusCodes } = require("http-status-codes");
+
+const validateRegisteration = require("./Validators/validateRegisteration");
 
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://127.0.1:27017/zoom")
+mongoose.connect("mongodb://127.0.0.1:27017/zoom")
 .then(()=>{
     console.log("MONGODB CONNECTED");
 })
 .catch((err)=>{
     console.log("MONGODB CONNECTION ERROR: ",err);
 })
+ 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
@@ -21,20 +26,17 @@ app.listen(PORT,()=>{
 });
 
 app.get("/",(req,res)=>{
-    res.json({message : "Currently on Home Tab"
+    res.status(StatusCodes.OK).json({message : "Currently on Home Tab"
     });
 });
 
 // app.use("/auth",authRoutes);
-app.post("/auth/register",(req,res)=>{
-    const result = req.body;
 
-})
+
 // ERROR HANDLING LOGIC
 app.use((err,req,res,next)=>{
-    console.log(err);
-
-    res.status(500).json({
-        message: "Internal Server Error"
+    const {statusCode = 500 , message = "Internal Server Error"} = err;
+    res.status(statusCode).json({
+        message
     });
 });
