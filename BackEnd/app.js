@@ -7,8 +7,10 @@ const ExpressError = require("./utilis/ExpressError");
 const { StatusCodes } = require("http-status-codes");
 
 const validateRegisteration = require("./Validators/validateRegisteration");
+const validateLogin = require("./Validators/validateLogin");
 
 const mongoose = require("mongoose");
+
 mongoose.connect("mongodb://127.0.0.1:27017/zoom")
 .then(()=>{
     console.log("MONGODB CONNECTED");
@@ -54,6 +56,10 @@ app.post("/auth/register",async (req,res)=>{
     };
     return res.status(StatusCodes.CREATED).json({message : "User Registered",safeUser});
 });
+
+app.post("/auth/login",(req,res)=>{
+    const result = validateLogin.validate(req.body);
+})
 
 // ERROR HANDLING LOGIC
 app.use((err,req,res,next)=>{
