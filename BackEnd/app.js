@@ -13,8 +13,8 @@ mongoose.connect("mongodb://127.0.0.1:27017/zoom")
     console.log("MONGODB CONNECTION ERROR: ",err);
 })
  
-app.use(express.json());
-app.use(express.urlencoded({extended:true}));
+app.use(express.json({limit : "100kb"}));
+app.use(express.urlencoded({extended:true,limit : "100kb"}));
 
 const PORT = 9090;
 app.listen(PORT,()=>{
