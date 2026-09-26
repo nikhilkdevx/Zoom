@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const server = createServer(app);
 const dotenv = require("dotenv");
 dotenv.config();
 const { StatusCodes } = require("http-status-codes");
