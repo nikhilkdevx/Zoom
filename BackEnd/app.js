@@ -1,7 +1,9 @@
 const express = require("express");
+const http = require("http");
 const app = express();
-const server = createServer(app);
-const io = new server(server);
+const server = http.createServer(app);
+const initSocket = require("./Controllers/socketManager");
+initSocket(server);
 const dotenv = require("dotenv");
 dotenv.config();
 const { StatusCodes } = require("http-status-codes");
@@ -18,8 +20,13 @@ mongoose.connect("mongodb://127.0.0.1:27017/zoom")
 app.use(express.json({limit : "100kb"}));
 app.use(express.urlencoded({extended:true,limit : "100kb"}));
 
+//CORS 
+app.use(cors({
+    origin : "http://localhost:5173"
+}));
+
 const PORT = 9090;
-app.listen(PORT,()=>{
+server.listen(PORT,()=>{
     console.log(`APP IS LISTENING TO ${PORT}`);
 });
 
