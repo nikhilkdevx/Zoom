@@ -4,6 +4,8 @@ const app = express();
 const server = http.createServer(app);
 const initSocket = require("./Controllers/socketManager");
 initSocket(server);
+const cors = require("cors");
+
 const dotenv = require("dotenv");
 dotenv.config();
 const { StatusCodes } = require("http-status-codes");
