@@ -1,10 +1,17 @@
 const { Server } = require("socket.io");
-const cors = require("cors");
+const jwt = require("jsonwebtoken");
 const initSocket = (server) => {
     const io = new Server(server,{
         cors : {
             origin : "http://localhost:5173"
         }
+    });
+
+    io.use((socket,next)=>{
+        const token = socket.handshake.auth.token;
+        jwt.verify(token,process.env.JWT_SECERT);
+
+        next();
     });
 
     io.on("connection",(socket) => {
