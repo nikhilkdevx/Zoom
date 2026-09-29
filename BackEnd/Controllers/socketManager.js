@@ -23,7 +23,7 @@ const initSocket = (server) => {
     io.on("connection",(socket) => {
         console.log("Socket Connected : ",socket.id);
 
-        socket.on("join-meeting",({meetingId,userId}) => {
+        socket.on("join-meeting",({meetingId}) => {
             socket.join(meetingId);
             socket.meetingId = meetingId;
             socket.to(meetingId).emit("user-joined",{userId:socket.user.userId});
@@ -55,7 +55,7 @@ const initSocket = (server) => {
 
     });
 
-    returnm
+    return io;
 };
 
 module.exports = initSocket;
