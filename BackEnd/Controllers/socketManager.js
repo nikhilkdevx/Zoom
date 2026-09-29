@@ -12,9 +12,10 @@ const initSocket = (server) => {
             console.log(socket.handshake);
             const token = socket.handshake.auth.token;
             const decoded = jwt.verify(token,process.env.JWT_SECERT);
+            socket.user = decoded;
             next();
         } catch (err) {
-            next(new Error("Authentication Failed"));
+            return next(new Error("Authentication Failed"));
         }
         
     });
@@ -24,17 +25,37 @@ const initSocket = (server) => {
 
         socket.on("join-meeting",({meetingId,userId}) => {
             socket.join(meetingId);
-            socket.to(meetingId).emit("user-joined",{userId});
+            socket.meetingId = meetingId;
+            socket.to(meetingId).emit("user-joined",{userId:socket.user.userId});
         });
 
         socket.on("disconnect",()=> {
             console.log("Socket disconnected : ",socket.id);
+            const meetingId = socket.meetingId;
+            if(!meetingId){
+                return;
+            }
+            const userId = socket.user.userId;
+            socket.to(meetingId).emit("user-left",{
+                userId
+            });
         });
+
+        socket.on("leave-meeting",()=>{
+            console.log("User left Current Meeting",socket.id);
+            const meetingId = socket.meetingId;
+            const userId = socket.user.userId;
+            socket.leave(meetingId);
+            socket.to(meetingId).emit("user-left",{
+                userId
+            });
+            delete socket.meetingId;
+
+        })
 
     });
 
-    return io;
-
+    returnm
 };
 
 module.exports = initSocket;
