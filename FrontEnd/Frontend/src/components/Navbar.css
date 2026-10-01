@@ -11,7 +11,13 @@
 
 }
 
-.Navbarbtns button p {
+.Navbarbtns{
+    display: flex;
+    gap:1rem;
+    padding: 1.5em; ;
+}
+
+.Navbarbtns button  {
     font-size: 0.9rem;
-    
+
 }
