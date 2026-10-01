@@ -1,6 +1,11 @@
+import Navbar from "./components/Navbar";
+
 export default function App() {
   return (
-    <h1>NexaMeet</h1>
+    <div className="hero">
+      <Navbar/>
+    </div>
+    
   )
 };
 

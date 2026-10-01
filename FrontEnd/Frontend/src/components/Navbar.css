@@ -1,0 +1,17 @@
+.NavbarHead h2{
+    color: white;
+    font-size: 2rem;
+    padding: 1.5rem;
+}
+
+.Navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.Navbarbtns button p {
+    font-size: 0.9rem;
+    
+}
