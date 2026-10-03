@@ -4,7 +4,7 @@ export default function Hero(){
     return(
         <div className="Hero">
             <div className="HeroDetails">
-                <h1><span>Connect. </span> Meet. Collaborate.</h1>
+                <h1><span style={{color: "yellowgreen"}}>Connect. </span> Meet. Collaborate.</h1>
                 <p>
                     Simple and reliable video meetings for 
                     connecting with pepople anywhere.
