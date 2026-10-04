@@ -4,5 +4,28 @@
     min-height: 100vh;
     background-position: center;
     background-repeat: no-repeat; 
+    display: flex;
 
+}
+
+.auth div{
+    border: 2px solid yellow;
+    flex: 1;
+}
+
+.auth .left{
+    display: flex;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    
+    
+}
+
+.auth h2{
+    font-size: 8rem;
+    
+}
+
+.auth .right{
 }
