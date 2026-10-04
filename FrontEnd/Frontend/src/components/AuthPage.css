@@ -1,0 +1,8 @@
+.auth{
+    background-size: cover;
+    background-image: url("../assets/Background.png");
+    min-height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat; 
+
+}
