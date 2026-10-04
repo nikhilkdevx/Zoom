@@ -5,6 +5,7 @@
     background-position: center;
     background-repeat: no-repeat; 
     display: flex;
+    color: white;
 
 }
 
@@ -27,5 +28,12 @@
     
 }
 
-.auth .right{
+.auth input {
+    color: black;
+    background-color: white;
+}
+
+.auth button {
+    color: black;
+    background-color: white;
 }

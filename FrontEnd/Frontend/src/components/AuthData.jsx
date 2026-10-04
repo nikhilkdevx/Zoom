@@ -17,10 +17,23 @@ export default function AuthData(){
         });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         if(mode === "signup"){
             console.log("Register : ",formData);
+        try{          
+        const response = await fetch("http://localhost:9090/auth/register", {
+                method: "POST",
+                headers: {
+                    "content-Type" : "application/json"
+                },
+                body: JSON.stringify(formData)
+            });
+        const data = await response.json();
+        console.log(data);
+        } catch (err){
+            console.log(err);
+        }
         } else {
             console.log("Login : ",formData);
         }
