@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./AuthData.css";
+import "./AuthPanel.css";
 export default function AuthData(){
     const [mode,setMode] = useState("signup");
 
@@ -36,6 +36,19 @@ export default function AuthData(){
         }
         } else {
             console.log("Login : ",formData);
+            try{
+            let response = await fetch("http://localhost:9090/auth/login",{
+                method:"POST",
+                headers : {
+                    "content-type" : "application/json"
+                },
+                body : JSON.stringify({email : formData.email,password : formData.password})
+            });
+            const data = await response.json();
+            console.log(data);
+        } catch (err){
+            console.log(err);
+        }
         }
         setFormData({
             name : "",

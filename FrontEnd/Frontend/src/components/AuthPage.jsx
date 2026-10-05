@@ -1,4 +1,4 @@
-import AuthData from "./AuthData";
+import AuthPanel from "./AuthPanel";
 import "./AuthPage.css";
 export default function auth(){
     return(
@@ -7,7 +7,7 @@ export default function auth(){
                 <h2>NexaMeet</h2>
             </div>
             <div className="right">
-                <AuthData/>
+                <AuthPanel/>
             </div>
         </div>
     )
