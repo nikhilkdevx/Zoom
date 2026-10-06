@@ -46,6 +46,7 @@ export default function AuthData(){
             });
             const data = await response.json();
             console.log(data);
+            localStorage.setItem("token",data.token);
         } catch (err){
             console.log(err);
         }
