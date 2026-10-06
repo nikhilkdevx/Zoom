@@ -7,11 +7,13 @@ const authMiddleware = (req,res,next) => {
         throw new ExpressError(StatusCodes.UNAUTHORIZED,"Authentication Required");
     }
     const token = authHeader.split(" ")[1];
-    const decoded = jwt.verify(token,process.env.JWT_SECERT);
-    if(decoded.error){
-        throw new ExpressError(StatusCodes.FORBIDDEN,decoded.error.message)
+    
+    try{
+        const decoded = jwt.verify(token,process.env.JWT_SECERT);
+        req.user = decoded;
+    } catch (err){
+        throw new ExpressError(StatusCodes.UNAUTHORIZED,"Invalid or Expired token");
     }
-    req.user = decoded;
     next();
 };
 

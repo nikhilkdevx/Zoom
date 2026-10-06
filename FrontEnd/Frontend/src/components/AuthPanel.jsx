@@ -49,7 +49,6 @@ export default function AuthData(){
             if(response.ok){
                 localStorage.setItem("token",data.token);
             }
-            
         } catch (err){
             console.log(err);
         }
