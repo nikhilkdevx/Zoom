@@ -24,6 +24,7 @@ const initSocket = (server) => {
         console.log("Socket Connected : ",socket.id);
 
         socket.on("join-meeting",({meetingId}) => {
+            console.log("Meeting ID Recieved",meetingId);
             socket.join(meetingId);
             socket.meetingId = meetingId;
             socket.to(meetingId).emit("user-joined",{userId:socket.user.userId});

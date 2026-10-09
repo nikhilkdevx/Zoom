@@ -1,9 +1,12 @@
 import { useState } from "react"
-
+import socket from "../socket";
 export default function Meeting(){
     const [formData,setFormData] = useState("");
     const [meetingId,setMeetingId] = useState("");
-    const handleJoinMeeting = () =>{console.log("Joining meeting" , meetingId)};
+    const handleJoinMeeting = () =>{ 
+        console.log("Join-meeting",{meetingId});
+        socket.emit("join-meeting" ,{meetingId})
+    };
     return (
         <div>
             <h1>Meeting Room</h1>
